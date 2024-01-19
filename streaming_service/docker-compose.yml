@@ -1,0 +1,12 @@
+version: "3.6"
+
+services:
+  nginx:
+    image: nginx
+    container_name: "hls_nginx"
+    volumes:
+#       - ./nginx/hls_s3.conf:/etc/nginx/conf.d/hls.conf
+      - ./nginx/audio_hls.conf:/etc/nginx/conf.d/hls.conf
+      - ./audio/hls:/hls/files
+    ports:
+      - "8080:8080"
