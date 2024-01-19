@@ -1,0 +1,36 @@
+---
+- name: user
+  hosts: all
+  tasks:
+    - name: Block1
+      when: ansible_facts['distribution'] == 'Ubuntu'
+      block:
+        - name: Create user
+          user:
+            name: "{{ user }}"
+            state: present
+        - name: Install curl
+          apt:
+            name: curl
+            update-cache: yes
+        - name: Fail on FAILED
+          command: echo "FAILED"
+          register: command_result
+          failed_when: "'FAILED' in command_result.stdout"
+      #блок, который будет выполняться при возникновении ошибки в задачах, находящихся выше
+      rescue:
+        - name: Some error print
+          debug:
+            #вывод переменной error как дебажная информация, в которой содержится результат выполнения задачи
+            var: command_result
+      #блок, который выполнится всегда, была ли ошибка в предыдущих задачах или нет
+      always:
+        - name: Reboot
+          debug:
+            msg: "Reboooot!"
+
+
+
+
+
+

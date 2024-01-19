@@ -1,0 +1,29 @@
+---
+- name: user
+  hosts: all
+  tasks:
+    - name: Block1
+      block:
+        - name: Sleep
+          command: /bin/sleep 10
+          #отводим для текущей таски макс. время выполнения 1000с
+          async: 1000
+          #опрашиваем текущую таску каждые 5с
+          poll: 5
+          register: sleep
+        - debug:
+            var: sleep
+        - name: Echo
+          command: echo "DONE"
+          register: result
+    - name: Check sleep status
+      async_status:
+        #передаём айдишник той таски, которую хотим дождаться
+        jid: "{{ sleep.ansible_job_id }}"
+      register: job_result
+      #ждём, пока не получим в поле finished код завершения задачи
+      until: job_result.finished
+      #повторяем 100 раз
+      retries: 100
+      #каждую секунду
+      delay: 1

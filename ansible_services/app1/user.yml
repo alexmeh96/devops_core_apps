@@ -1,0 +1,35 @@
+---
+- name: user
+  hosts: all
+  tasks:
+    #название первого блока
+    - name: Block1
+      #выполнение всех заданий текущего блока от root
+      become: true
+      #список заданий текущего блока
+      block:
+        - name: Create user
+          vars:
+            user: alexcoder
+          user:
+            name: "{{ user }}"
+            state: present
+        - name: Install curl
+          apt:
+            name: curl
+            update-cache: yes
+    #название второго блока
+    - name: Block2
+      block:
+        - name: Create user
+          vars:
+            user: alexcoder2
+          user:
+            name: "{{ user }}"
+            state: present
+
+
+
+
+
+
