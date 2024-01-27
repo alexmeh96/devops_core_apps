@@ -11,4 +11,4 @@ services:
       - ./config:/etc/prometheus
       - prom_data:/prometheus
 volumes:
-  prom_data:
+  prom_data: {}
