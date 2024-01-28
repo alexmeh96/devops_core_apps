@@ -6,8 +6,11 @@ services:
 #    restart: unless-stopped
     ports:
       - '3000:3000'
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin-password
+      - GF_PATHS_CUSTOM_INI=/etc/grafana/custom.ini  # Set the path to the custom.ini file
     volumes:
-      - grafana-storage:/var/lib/grafana
-
-volumes:
-  grafana-storage: {}
+      - ./config/custom.ini:/etc/grafana/custom.ini
+      - ./config/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./config/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./config/dashboards:/etc/grafana/dashboards
