@@ -67,3 +67,7 @@ node exporter - источник данных(экспортёр), которы�
 https://github.com/prometheus/node_exporter
 
 Страница node exporter: http://localhost:9100
+
+## cadvisor
+
+cadvisor - соберает метрики docker контейнеров

@@ -1,10 +1,11 @@
----
 version: '3.8'
 services:
   grafana:
     extends:
       file: ./grafana/docker-compose.yaml
       service: grafana
+    links:
+      - prometheus
   prometheus:
     extends:
       file: ./prometheus/docker-compose.yaml
@@ -13,7 +14,13 @@ services:
     extends:
       file: ./node_exporter/docker-compose.yaml
       service: node_exporter
+  cadvisor:
+    extends:
+      file: ./cadvisor/docker-compose.yaml
+      service: cadvisor
 
 volumes:
-  grafana-storage: {}
-  prom_data: {}
+  prometheus_data: {}
+networks:
+  monitoring:
+    driver: bridge
