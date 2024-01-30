@@ -4,6 +4,8 @@
 
 `terraform init`  —  инициализация terraform. Создаёт в текущей дирректории папку `./terraform`
 
+`terraform init -upgrade`  —  инициализация terraform и обновление зависимотей
+
 `terraform plan`   —  вывод плана построение инфраструктуры
 
 `terraform apply -auto-approve`   —  запуск построение плана создания инфраструктуры, и исполнение его
