@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  node_exporter:
+    extends:
+      file: ./node_exporter/docker-compose.yaml
+      service: node_exporter
+  cadvisor:
+    extends:
+      file: ./cadvisor/docker-compose.yaml
+      service: cadvisor

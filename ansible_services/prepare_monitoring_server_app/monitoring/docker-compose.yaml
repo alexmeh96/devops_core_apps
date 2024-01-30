@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  portainer:
+    extends:
+      file: ./portainer/docker-compose.yaml
+      service: portainer
+  grafana:
+    extends:
+      file: ./grafana/docker-compose.yaml
+      service: grafana
+    links:
+      - prometheus
+  prometheus:
+    extends:
+      file: ./prometheus/docker-compose.yaml
+      service: prometheus
+  node_exporter:
+    extends:
+      file: ./node_exporter/docker-compose.yaml
+      service: node_exporter
+  cadvisor:
+    extends:
+      file: ./cadvisor/docker-compose.yaml
+      service: cadvisor
+
+volumes:
+  prometheus_data: {}
+  portainer_data: {}
+networks:
+  monitoring:
+    driver: bridge
